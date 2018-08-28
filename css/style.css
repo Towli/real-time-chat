@@ -1,0 +1,115 @@
+html, body {
+    width: 100wh;
+    height: 100vh;
+    /* color: #615D6C; */
+    background-color: #CAE5FF;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: #CAE5FF;
+    height: 20%;
+}
+
+header h1 {
+    background-color: white;
+    min-width: 15rem;
+    margin: auto;
+}
+
+#doc {
+    margin: auto;
+    /* border: 4px solid #6F8AB7; */
+    border: none;
+    width: 50%;
+    line-height: calc(22px * 2);
+    font-size: 22px;
+    color: #615D6C;
+    resize: none;
+    padding: .5em;
+    outline: none;
+}
+
+#doc::selection {
+    background-color: #9B7EDE;
+}
+
+#doc:focus {
+    border: 5px solid rgba(97,93,108, .2);
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 35rem;
+    height: 30rem;
+    max-width: 35rem;
+    max-height: 30rem;
+    background-color: white;
+}
+
+#messages {
+    width: 100%;
+    height: 27rem;
+    overflow: scroll;
+}
+
+#input-container {
+    width: 100%;
+    height: 3rem;
+    padding: 0;
+    box-sizing: border-box;
+    color: #615D6C;
+}
+
+input {
+    width: 100%;
+    height: 100%;
+    padding: .2rem .5rem .2rem .5rem;
+    background-color: white;
+    border: none;
+    border-top: 3px solid #CAE5FF;
+    outline: none;
+    font-size: 1.8rem;
+    box-sizing: border-box;
+    color: #615D6C;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#message {
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #615D6C;
+    box-sizing: border-box;
+    padding: .2rem .5rem .2rem .5rem;
+    background-color: white;
+}
+ƒ
+#message.username {
+    top: 0;
+    left: 0;
+    width: 2em;
+    height: 1em;
+}
+
+.alt {
+    background-color:#E5E1EE !important;
+}
+
+.username {
+    font-size: 1.2rem;
+}

@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <link href='css/style.css' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+    
+</head>
+
+<body>
+    <div class='container'>
+        <header>
+            <h1>real time chat</h1>
+        </header>
+        <div id='chat-container'>
+            <div id='messages'>
+            </div>
+            <div id=input-container>
+                <input id='input' type='text' placeholder='type a message..'>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var socket = io();
+            var messagesElement = document.querySelector('#messages');
+            var inputElement = document.querySelector('#input');
+
+            var messages = [];
+            var username = '';
+
+            socket.on('connection', function(payload) {
+                messages = payload.messages;
+                username = payload.username;
+                colour = payload.colour;
+                syncMessages();
+            });
+
+            socket.on('messages_updated', function(newMessages) {
+                messages = newMessages;
+                syncMessages();
+            });
+
+            inputElement.addEventListener('keyup', function(event) {
+                if (event.keyCode === 13) {
+                    if (inputElement.value) {
+                        var messageObj = { username: username, colour: colour, body: inputElement.value } 
+                        messages.push(messageObj);
+                        addMessage(messageObj);
+                        inputElement.value = '';
+                    }
+                    snapToBottom();
+                }
+            });
+
+            function syncMessages() {
+                messagesElement.innerHTML = '';
+                for (var i = 0; i < messages.length; i++) {
+                    var messageClass = i % 2 ? 'alt' : '';
+                    var usernameHTML = '<span class=\'username\' style=\'color:' + messages[i].colour + '\'>' + messages[i].username + ': &nbsp;</span>';
+                    messagesElement.innerHTML += '<div id=\'message\' class=\'' + messageClass + '\' >' + usernameHTML + messages[i].body + '</div>';
+                }
+                snapToBottom();
+            }
+
+            function addMessage(message) {
+                var messageClass = messages.length % 2 ? 'alt' : '';
+                messagesElement.innerHTML += '<div id=\'message\' class=\'' + messageClass + '\' >' + message.body + '</div>';
+                socket.emit('messages_updated', messages);
+            }
+
+            function snapToBottom() {
+                messagesElement.scrollTop = messagesElement.scrollHeight - messagesElement.clientHeight;
+            }
+
+        })
+    </script>
+</body>
+</html>
